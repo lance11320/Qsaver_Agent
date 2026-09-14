@@ -1,0 +1,6 @@
+gradio>=6,<7
+PyMuPDF>=1.26,<2
+python-docx>=1.2,<2
+Pillow>=11,<13
+httpx>=0.28,<1
+pytest>=8,<10

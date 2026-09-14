@@ -1,0 +1,21 @@
+<div class="chat-app"><div class="drop-overlay" hidden>松开以添加文档<br><small>支持同时拖入多个 PDF、Word 或题库 JSON</small></div>
+<aside class="project-rail"><div class="popover-title"><strong>项目</strong><button id="project-new" title="新建项目">＋</button></div><label class="archived-toggle"><input type="checkbox" id="show-archived">显示归档</label><div id="project-list"></div><small>对话、来源与复核进度自动保存</small></aside>
+  <header class="chat-heading"><div><span class="live-dot"></span><button id="project-toggle" class="quiet" title="切换项目">☷</button><strong id="project-title">题库Co-pilot</strong></div><button class="quiet" id="versions-btn">题库版本</button><button class="quiet" id="history-btn">↗ 加载已有结果</button></header>
+  <div class="conversation" id="conversation" aria-live="polite">
+    <section class="welcome" id="welcome"><div class="brand-glyph">✦</div><p class="eyebrow">QSAVER · DOCUMENT AGENT</p><h1>录入与选题，都交给 Co-pilot。</h1><p>整理试卷、关联答案、复核附图，<br>也可以从题库 JSON 中按你的需求选题。</p><div class="suggestions"><button data-suggest="请整理文件夹里的题目和答案，先建立文件关系清单。">▤ 整理一组文档 <span>↗</span></button><button id="select-suggest">◇ 按需求选题 <span>↗</span></button></div><div class="workflow-hint"><span>01 文件关系</span><i>—</i><span>02 完整提取</span><i>—</i><span>03 题图复核</span><i>—</i><span>04 入库</span></div></section>
+    <div id="messages"></div>
+    <div id="progress" class="progress-line" hidden><span class="spinner"></span><span id="progress-text"></span></div>
+  </div>
+  <div class="composer-wrap">
+    <div id="notice" role="status" hidden></div>
+    <div class="composer">
+      <div id="attached" class="attachments" hidden></div>
+      <div id="folder-row" class="folder-row" hidden><span>本机目录</span><input id="folder-input" placeholder="F:\课程资料\试卷文件夹" aria-label="本机文档目录"><button id="folder-close" title="清除目录">×</button></div>
+      <textarea id="chat-input" rows="2" aria-label="给题库 Agent 的任务" placeholder="例如：整理“F:\试卷”下的题目，将题库 JSON 保存至“G:\输出”；或上传 JSON 按需求选题。"></textarea>
+      <div class="composer-footer"><div class="composer-left"><button class="icon-button" id="attach-btn" title="附加文档" aria-label="附加文档">＋</button><button class="quiet" id="folder-btn">⌑ 文件夹</button><input id="file-input" type="file" multiple accept=".pdf,.docx,.txt,.md,.json" hidden></div><div class="composer-right"><span id="token-meter" class="token-meter" title="本次对话实际 API 用量；加载历史结果不增加用量">0 tokens</span><button class="model-button" id="model-btn" aria-expanded="false"><span id="model-label">qwen3.8-flash</span><span>⌃</span></button><button id="send-btn" class="send-button" title="发送任务" aria-label="发送任务">↑</button></div></div>
+      <dialog id="settings" class="settings-popover" hidden aria-label="API 与模型设置"><div class="popover-title"><strong>API 与模型</strong><button id="settings-close" class="quiet" aria-label="关闭模型设置">×</button></div><label>接口<select id="profile-select"></select></label><div id="custom-api" hidden><label>API 地址<input id="api-base" placeholder="https://…/v1"></label><label>API Key<input id="api-key" type="password" autocomplete="off" placeholder="填写密钥；不会回传已保存密钥"></label></div><div class="setting-grid"><label>提取 / 对话模型<input id="model-input" list="model-options"></label><label>题图定位模型<input id="figure-model-input" list="model-options"></label></div><datalist id="model-options"></datalist><label class="worker-row">并发请求<select id="workers-input"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></label><p>与单题录入共用本机 API 配置。保存后两边生效；密钥只写入本机配置文件。</p><p>思考策略：自动。规划、关联与语义选题开启；普通抄录关闭，返工时按需开启。</p><button id="settings-save" class="primary">保存并同步</button></dialog>
+    </div><div class="composer-caption">文档 → 关系确认 → 提取 → 题图确认 → 入库</div>
+  </div>
+  <dialog id="project-dialog"></dialog>
+  <dialog id="history-dialog"><div class="popover-title"><strong>继续已有提取</strong><button class="quiet" id="history-close" aria-label="关闭历史结果">×</button></div><p>加载不会调用模型，也不会重复提取。</p><div id="history-list"></div></dialog>
+</div>

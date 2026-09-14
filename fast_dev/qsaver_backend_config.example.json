@@ -1,0 +1,9 @@
+{
+  "backend_mode": "远程 API",
+  "api_key": "",
+  "api_profiles": [],
+  "api_model_name": "qwen3.8-flash",
+  "text_review_model": "qwen3.8-max",
+  "pdf_render_scale": 3.0,
+  "qwen_image_max_pixels": 5242880
+}
